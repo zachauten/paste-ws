@@ -1,0 +1,7 @@
+.vscode/
+.github/
+pastes/
+LICENSE
+README.md
+.gitignore
+*.log
