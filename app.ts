@@ -1,10 +1,13 @@
 #! /usr/bin/env deno run --allow-read --allow-write=./pastes --allow-net
 
-import { Application, Router, Context, Status, Hash, encode } from "./deps.ts";
+import { Application, Context, encode, Hash, Router, Status } from "./deps.ts";
 
 const app = new Application();
 const router = new Router();
 router
+  .post("/self", async (context) => {
+    context.response.body = "Running!";
+  })
   .post("/paste", async (context) => {
     const body = context.request.body({ type: "form" });
     const paste = (await body.value).get("paste");
@@ -15,7 +18,7 @@ router
       context.response.status = Status.SeeOther;
       context.response.redirect(`paste/${hash}`);
     }
-  })
+  });
 
 app.use(router.routes());
 app.use(router.allowedMethods());
