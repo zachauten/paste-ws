@@ -5,10 +5,10 @@ import { Application, Context, encode, Hash, Router, Status } from "./deps.ts";
 const app = new Application();
 const router = new Router();
 router
-  .post("/self", async (context) => {
+  .get("/self", async (context) => {
     context.response.body = "Running!";
   })
-  .post("/paste", async (context) => {
+  .post("/", async (context) => {
     const body = context.request.body({ type: "form" });
     const paste = (await body.value).get("paste");
     if (!paste) context.throw(Status.BadRequest, "Request body empty");
